@@ -1,0 +1,50 @@
+{{> header}}
+
+<h1>Job List</h1>
+<table style="border-collapse: collapse;">
+    <tr>
+        <th>Company Name</th>
+        <th>Position</th>
+        <th>Blurb</th>
+        <th>Years of Experience</th>
+        <th>Tags</th>
+        <th>Liked</th>
+    </tr>
+    {{#jobs}}
+    <tr style="border-top: 1pt solid black;">
+        <td><a href="/job/{{_id}}">{{companyName}}</a></td>
+        <td><a href="/job/{{_id}}">{{position}}</a></td>
+        <td>{{{blurb}}}</td>
+        <td>{{yearsExp}}</td>
+        <td>
+            {{#tags}}{{.}}, {{/tags}}
+            <br>
+            {{#requirements}}{{.}}<br>{{/requirements}}
+        </td>
+        <td>{{> like_radio}}</td>
+    </tr>
+    {{/jobs}}
+</table>
+<div>
+    {{#prevPage}}
+        {{#totalPages}}
+            <a href="?page={{prevPage}}">Previous</a>
+        {{/totalPages}}
+    {{/prevPage}}
+
+    {{#currentPage}}
+        {{#totalPages}}
+            <p>Page {{currentPage}} of {{totalPages}}</p>
+        {{/totalPages}}
+    {{/currentPage}}
+
+    {{#nextPage}}
+        {{#totalPages}}
+            <a href="?page={{nextPage}}">Next</a>
+        {{/totalPages}}
+    {{/nextPage}}
+</div>
+
+{{> like_script}}
+
+{{> footer}}

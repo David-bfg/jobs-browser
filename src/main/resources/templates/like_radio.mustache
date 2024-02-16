@@ -1,0 +1,6 @@
+<div style="width: 60px">
+    <input type="radio" id="{{_id}}_like" name="{{_id}}_like" onclick="handleLikeClick('{{_id}}', true)" {{#isLiked}}{{#liked}}checked{{/liked}}{{/isLiked}}>
+    <label for="{{_id}}_like">Yes</label><br>
+    <input type="radio" id="{{_id}}_dislike" name="{{_id}}_like" onclick="handleLikeClick('{{_id}}', false)" {{#isLiked}}{{^liked}}checked{{/liked}}{{/isLiked}}>
+    <label for="{{_id}}_dislike">No</label>
+</div>

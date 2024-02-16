@@ -1,0 +1,34 @@
+{{> header}}
+
+<h1>Job data</h1>
+<table>
+    <tr>
+        <th>Company Name</th>
+        <th>Position</th>
+        <th>Years of Experience</th>
+        <th>Date Posted</th>
+        <th>Tags & requirements</th>
+        <th>Liked</th>
+        <th>Job Link</th>
+    </tr>
+    {{#job}}
+    <tr>
+        <td>{{companyName}}</td>
+        <td>{{position}}</td>
+        <td>{{yearsExp}}</td>
+        <td>{{datePosted}}</td>
+        <td>
+            {{#tags}}{{.}}, {{/tags}}
+            <br>
+            {{#requirements}}{{.}}<br>{{/requirements}}
+        </td>
+        <td>{{> like_radio}}</td>
+        <td><a href="{{link}}">Job Link</a><td>
+    </tr>
+</table>
+<textarea readonly style="width: 800px; height: 1000px">{{fullJobPost}}</textarea>
+
+{{/job}}
+{{> like_script}}
+
+{{> footer}}
