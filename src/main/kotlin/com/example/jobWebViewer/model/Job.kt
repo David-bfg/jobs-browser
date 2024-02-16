@@ -1,11 +1,13 @@
 package com.example.jobWebViewer.model
 
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.Date
 
 @Document(collection = "jobs")
 data class Job(
-        val _id: String,
+        @Id
+        val id: String,
         val companyName: String,
         val position: String,
         val blurb: String,

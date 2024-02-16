@@ -12,8 +12,8 @@
     </tr>
     {{#jobs}}
     <tr style="border-top: 1pt solid black;">
-        <td><a href="/job/{{_id}}">{{companyName}}</a></td>
-        <td><a href="/job/{{_id}}">{{position}}</a></td>
+        <td><a href="/job/{{id}}">{{companyName}}</a></td>
+        <td><a href="/job/{{id}}">{{position}}</a></td>
         <td>{{{blurb}}}</td>
         <td>{{yearsExp}}</td>
         <td>
@@ -26,11 +26,11 @@
     {{/jobs}}
 </table>
 <div>
-    {{#prevPage}}
+    {{#prevPageLink}}
         {{#totalPages}}
-            <a href="?page={{prevPage}}">Previous</a>
+            <a href="{{prevPageLink}}">Previous</a>
         {{/totalPages}}
-    {{/prevPage}}
+    {{/prevPageLink}}
 
     {{#currentPage}}
         {{#totalPages}}
@@ -38,11 +38,11 @@
         {{/totalPages}}
     {{/currentPage}}
 
-    {{#nextPage}}
+    {{#nextPageLink}}
         {{#totalPages}}
-            <a href="?page={{nextPage}}">Next</a>
+            <a href="{{nextPageLink}}">Next</a>
         {{/totalPages}}
-    {{/nextPage}}
+    {{/nextPageLink}}
 </div>
 
 {{> like_script}}
