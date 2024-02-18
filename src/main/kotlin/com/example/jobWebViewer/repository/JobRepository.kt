@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import java.time.LocalDate
 
+// TODO: Replace with QueryDSL
 interface JobRepository : MongoRepository<Job, String> {
     @Query("{ 'liked' : ?0, 'datePosted' : { '\$gt' : ?1 } }")
     fun findAllByLikedAndDatePostedGreaterThan(liked: Boolean, cutoffDate: LocalDate, pageable: Pageable): Page<Job>
