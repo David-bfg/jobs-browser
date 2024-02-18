@@ -57,10 +57,10 @@ class JobController(private val jobRepository: JobRepository) {
         return "jobs"
     }
 
-    @PatchMapping("/job-liked")
+    @PatchMapping("/job-liked/{jobId}")
     @ResponseBody
-    fun like(@RequestBody request: Map<String, String>): HttpStatus {
-        val job = request["jobId"]?.let { jobRepository.findById(it) }
+    fun like(@PathVariable jobId: String): HttpStatus {
+        val job = jobRepository.findById(jobId)
         if (job != null) {
             if (job.isPresent) {
                 val updatedJob = job.get().copy(liked = true)
@@ -71,10 +71,10 @@ class JobController(private val jobRepository: JobRepository) {
         return HttpStatus.NOT_FOUND
     }
 
-    @PatchMapping("/job-disliked")
+    @PatchMapping("/job-disliked/{jobId}")
     @ResponseBody
-    fun dislike(@RequestBody request: Map<String, String>): HttpStatus {
-        val job = request["jobId"]?.let { jobRepository.findById(it) }
+    fun dislike(@PathVariable jobId: String): HttpStatus {
+        val job = jobRepository.findById(jobId)
         if (job != null) {
             if (job.isPresent) {
                 val updatedJob = job.get().copy(liked = false)

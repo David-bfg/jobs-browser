@@ -2,14 +2,11 @@
     // Function to handle radio button click
     function handleLikeClick(jobId, liked) {
         // Make an AJAX request to update the server
-        fetch(liked ? "/job-liked" : "/job-disliked", {
+        fetch((liked ? "/job-liked/" : "/job-disliked/") + jobId, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                jobId: jobId,
-            }),
         })
         .then(response => {
             if (!response.ok) {
