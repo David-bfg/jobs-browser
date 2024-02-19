@@ -85,6 +85,20 @@ class JobController(private val jobRepository: JobRepository) {
         return HttpStatus.NOT_FOUND
     }
 
+    @PatchMapping("/job-applied/{jobId}")
+    @ResponseBody
+    fun applied(@PathVariable jobId: String): HttpStatus {
+        val job = jobRepository.findById(jobId)
+        if (job != null) {
+            if (job.isPresent) {
+                val updatedJob = job.get().copy(status = "applied")
+                jobRepository.save(updatedJob)
+                return HttpStatus.OK
+            }
+        }
+        return HttpStatus.NOT_FOUND
+    }
+
     @GetMapping("/job/{jobId}")
     fun getJobDetails(@PathVariable jobId: String, model: Model): String {
         val jobOptional = jobRepository.findById(jobId)

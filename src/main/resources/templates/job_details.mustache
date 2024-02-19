@@ -22,13 +22,24 @@
             <br>
             {{#requirements}}{{.}}<br>{{/requirements}}
         </td>
-        <td>{{> like_radio}}</td>
-        <td><a href="{{link}}">Job Link</a><td>
+        <td>
+            {{> like_radio}}
+            {{#status}}{{.}}{{/status}}
+        </td>
+        <td>
+            {{#liked}}
+                <button onclick="handleAppliedClick('{{id}}')">Applied</button>
+                <br>
+                <br>
+            {{/liked}}
+            <a href="{{link}}">Job Link</a>
+        <td>
     </tr>
 </table>
 <textarea readonly style="width: 800px; height: 1000px">{{fullJobPost}}</textarea>
 
 {{/job}}
 {{> like_script}}
+{{> applied_script}}
 
 {{> footer}}

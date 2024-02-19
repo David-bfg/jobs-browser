@@ -21,7 +21,10 @@
             <br>
             {{#requirements}}{{.}}<br>{{/requirements}}
         </td>
-        <td>{{> like_radio}}</td>
+        <td>
+            {{> like_radio}}
+            {{#status}}{{.}}{{/status}}
+        </td>
     </tr>
     {{/jobs}}
 </table>

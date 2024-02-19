@@ -20,4 +20,5 @@ data class Job(
         val liked: Boolean?,
         val likeProbability: Float?,
         var isLiked: Boolean?,
+        val status: String?,
 )

@@ -1,0 +1,21 @@
+<script>
+    // Function to handle radio button click
+    function handleAppliedClick(jobId) {
+        // Make an AJAX request to update the server
+        fetch("/job-applied/" + jobId, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            console.log("Update successful:", response);
+        })
+        .catch(error => {
+            console.error("Update failed:", error);
+        });
+    }
+</script>
