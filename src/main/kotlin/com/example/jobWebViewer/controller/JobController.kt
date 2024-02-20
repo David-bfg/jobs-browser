@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -59,53 +60,50 @@ class JobController(private val jobRepository: JobRepository) {
 
     @PatchMapping("/job-liked/{jobId}")
     @ResponseBody
-    fun like(@PathVariable jobId: String): HttpStatus {
+    fun like(@PathVariable jobId: String): ResponseEntity<String> {
         val job = jobRepository.findById(jobId)
-        if (job != null) {
-            if (job.isPresent) {
-                val updatedJob = job.get().copy(liked = true)
-                jobRepository.save(updatedJob)
-                return HttpStatus.OK
-            }
+        if (job.isPresent) {
+            val updatedJob = job.get().copy(liked = true)
+            jobRepository.save(updatedJob)
+            return ResponseEntity.ok("Job liked")
+        } else {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Job not found")  // HTTP 422
         }
-        return HttpStatus.NOT_FOUND
     }
 
     @PatchMapping("/job-disliked/{jobId}")
     @ResponseBody
-    fun dislike(@PathVariable jobId: String): HttpStatus {
+    fun dislike(@PathVariable jobId: String): ResponseEntity<String> {
         val job = jobRepository.findById(jobId)
-        if (job != null) {
-            if (job.isPresent) {
-                val updatedJob = job.get().copy(liked = false)
-                jobRepository.save(updatedJob)
-                return HttpStatus.OK
-            }
+        if (job.isPresent) {
+            val updatedJob = job.get().copy(liked = false)
+            jobRepository.save(updatedJob)
+            return ResponseEntity.ok("Job disliked")
+        } else {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Job not found")  // HTTP 422
         }
-        return HttpStatus.NOT_FOUND
     }
 
     @PatchMapping("/job-applied/{jobId}")
     @ResponseBody
-    fun applied(@PathVariable jobId: String): HttpStatus {
+    fun applied(@PathVariable jobId: String): ResponseEntity<String> {
         val job = jobRepository.findById(jobId)
-        if (job != null) {
-            if (job.isPresent) {
-                val updatedJob = job.get().copy(status = "applied")
-                jobRepository.save(updatedJob)
-                return HttpStatus.OK
-            }
+        if (job.isPresent) {
+            val updatedJob = job.get().copy(status = "applied")
+            jobRepository.save(updatedJob)
+            return ResponseEntity.ok("Job status: applied")
+        } else {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Job not found")  // HTTP 422
         }
-        return HttpStatus.NOT_FOUND
     }
 
     @GetMapping("/job/{jobId}")
     fun getJobDetails(@PathVariable jobId: String, model: Model): String {
-        val jobOptional = jobRepository.findById(jobId)
-        if (jobOptional.isPresent) {
-            val job = jobOptional.get()
-            job.isLiked = job.liked != null
-            model.addAttribute("job", job)
+        val job = jobRepository.findById(jobId)
+        if (job.isPresent) {
+            val responseJob = job.get()
+            responseJob.isLiked = responseJob.liked != null
+            model.addAttribute("job", responseJob)
             return "job_details"
         } else {
             // Handle job not found
